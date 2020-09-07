@@ -1,3 +1,6 @@
 # botato
 
-- install flask, ngrok, requests libraries
+- install the necessary frameworks/libraries
+`pip install Flask`
+`pip install ngrok'
+'pip install requests'
