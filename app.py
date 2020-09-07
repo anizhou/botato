@@ -5,6 +5,7 @@ import requests
 app = Flask(__name__)
 run_with_ngrok(app)  # Start ngrok when app is run
 
+# Tokens
 FB_API_URL = 'https://graph.facebook.com/v2.6/me/messages'
 VERIFY_TOKEN = 'bob'
 PAGE_ACCESS_TOKEN = 'EAAE361oDiy4BAG23yqgcoMO5hmu7v4EEM55HNbWgdrDAdDGAYvuu9NpnjANm2aYDFmC5VZAEMSGaFZBZBFMYsWVKw67006NJjx6xJ1mnneoZCawFWWDHKyPwNQjQhnviDqZBGU7xhBmeZBVXk5Q5auVzZBeFMw0G00kHTmBjtOiSQZDZD'
@@ -18,30 +19,27 @@ def get_bot_response(message):
     the user said. Replace this function with one connected to chatbot."""
     return "This is a dummy response to '{}'".format(message)
 
-
+# Verify whether webhook is connected
 def verify_webhook(req):
     if req.args.get("hub.verify_token") == VERIFY_TOKEN:
         return req.args.get("hub.challenge")
     else:
         return "incorrect"
 
+# Formulate a response to the user and pass it to the function that sends it
 def respond(sender, message):
-    """Formulate a response to the user and
-    pass it on to a function that sends it."""
     response = get_bot_response(message)
     send_message(sender, response)
 
-
+# Check if the message is a message from the user
 def is_user_message(message):
-    """Check if the message is a message from the user"""
     return (message.get('message') and
             message['message'].get('text') and
             not message['message'].get("is_echo"))
 
+# Main function flask uses to listen at the "/webhook" endpoint
 @app.route("/webhook", methods=['GET', 'POST'])
 def listen():
-    """This is the main function flask uses to 
-    listen at the `/webhook` endpoint"""
     if request.method == 'GET':
         return verify_webhook(request)
 
@@ -56,8 +54,8 @@ def listen():
 
         return "ok"
 
+# Send a response back to the user
 def send_message(recipient_id, text):
-    """Send a response to Facebook"""
     payload = {
         'message': {
             'text': text
