@@ -7,15 +7,22 @@ API_KEY = 'AIzaSyDYMwRSfChNGRiFY90ygxLzhiigkfBuhIo'
 gmaps = googlemaps.Client(key = API_KEY)
 
 # Variables for storing place name that user wants as well as their location
-place = 'McDonalds'
+place = 'McDonalds delivery'
 my_location = '-33.8670522, 151.1957362'
 
-# Queries for restaurants depends on delivery, takeaway, or normal
-if (place == 'McDonalds delivery'):
-    places_result = gmaps.places_nearby(location = my_location, keyword = place, open_now = True, rank_by = 'distance', type = 'meal_delivery')
-if (place == 'McDonalds takeaway'):
-    places_result = gmaps.places_nearby(location = my_location, keyword = place, open_now = True, rank_by = 'distance', type = 'meal_takeaway')
-
+# Make a request for nearby places near user's location
 places_result = gmaps.places_nearby(location = my_location, keyword = place, open_now = True, rank_by = 'distance', type = 'restaurant')
 
-pprint.pprint(places_result)
+# Loop through all the places in the results
+for place in places_result['results']:
+
+    # Define place id
+    my_place_id = place['place_id']
+
+    # Define necessary fields
+    my_fields = ['name', 'formatted_phone_number', 'price_level', 'rating']
+
+    # Make a request for the place details
+    place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
+
+    print(place_details)
