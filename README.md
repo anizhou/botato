@@ -1,6 +1,6 @@
 # botato
 
 - install the necessary frameworks/libraries
-```pip install Flask```
-```pip install ngrok```
-```pip install requests```
+  - [x] `pip install Flask`
+  - [x] `pip install ngrok`
+  - [x] `pip install requests`
