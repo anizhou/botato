@@ -36,12 +36,9 @@ def top_five(location, place): #should pass location and food
             place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
             five_list.append(place_details)
     
-    return five_list
+    results = ""
+    for item in five_list:
+        results += "{name}\n Number: {phone_number}\n Price Level: {price_level}\n Rating: {rating}\n\n".format(name = item['result']['name'], phone_number = item['result']['formatted_phone_number'], price_level = item['result']['price_level'], rating = item['result']['rating']) 
 
-
-five_list = top_five('40.7828514,-73.96528127819182', "mcdonalds")
-results = ""
-for item in five_list:
-    print(item['result']['name'])
-    
+    return results
     
