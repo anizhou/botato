@@ -6,23 +6,39 @@ import time
 API_KEY = 'AIzaSyDYMwRSfChNGRiFY90ygxLzhiigkfBuhIo'
 gmaps = googlemaps.Client(key = API_KEY)
 
-# Variables for storing place name that user wants as well as their location
-place = 'McDonalds delivery'
-my_location = '-33.8670522, 151.1957362'
+def top_five(location, place): #should pass location and food
 
-# Make a request for nearby places near user's location
-places_result = gmaps.places_nearby(location = my_location, keyword = place, open_now = True, rank_by = 'distance', type = 'restaurant')
+    # Make a request for nearby places near user's location
+    places_result = gmaps.places_nearby(location = location, keyword = place, open_now = True, rank_by = 'distance', type = 'restaurant, cafe')   
 
-# Loop through all the places in the results
-for place in places_result['results']:
+    # List to store top five results
+    five_list = []
 
-    # Define place id
-    my_place_id = place['place_id']
+    if len(places_result['results']) > 5:
+        for i in range(5):
 
-    # Define necessary fields
-    my_fields = ['name', 'formatted_phone_number', 'price_level', 'rating']
+            # Define place id
+            my_place_id = places_result['results'][i]['place_id']
 
-    # Make a request for the place details
-    place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
+            # Define necessary fields
+            my_fields = ['name', 'formatted_phone_number', 'price_level', 'rating']
 
-    print(place_details)
+            # Make a request for the place details
+            place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
+
+            five_list.append(place_details)
+
+    elif (len(places_result['results']) <= 5):
+        for place in places_result['results']:
+
+            my_place_id = place['place_id']    
+            my_fields = ['name', 'formatted_phone_number', 'price_level', 'rating']
+            place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
+            five_list.append(place_details)
+    
+    return five_list
+
+
+#top_five('32.9858, -96.7501', "tea")
+# top_five('40.711070,-73.803520',"Mcdonalds")
+print(top_five('40.7828514,-73.96528127819182',"tea"))

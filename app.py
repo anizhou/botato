@@ -1,7 +1,6 @@
 from flask import Flask, request
 from flask_ngrok import run_with_ngrok
-import googleapi
-import requests
+import requests, googleapi
 
 app = Flask(__name__)
 run_with_ngrok(app)  # Start ngrok when app is run
@@ -15,10 +14,10 @@ PAGE_ACCESS_TOKEN = 'EAAE361oDiy4BAG23yqgcoMO5hmu7v4EEM55HNbWgdrDAdDGAYvuu9NpnjA
 def home():
     return "Howdy, Flask!"
 
+# Get the bot response
 def get_bot_response(message):
-    """This is just a dummy thicc function, returning a variation of what
-    the user said. Replace this function with one connected to chatbot."""
-    return "This is a dummy response to '{}'".format(message)
+    five_list = googleapi.top_five('40.7828514,-73.96528127819182', message)
+    return "Results: '{}'".format(five_list)
 
 # Verify whether webhook is connected
 def verify_webhook(req):
