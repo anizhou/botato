@@ -57,3 +57,14 @@ def top_five(location, place): #should pass location and food
 #food_choice=input("Enter choice: ")
 #choice=top_five(g, food_choice)  
 #print(choice)  
+
+def get_location(foodie):
+	foodie=geolocator.geocode(foodie)
+	latt=str(foodie.latitude)
+	lon=str(foodie.longitude)
+	address=latt+','+lon
+	return address
+
+food = '159 jamaica avenue'
+
+print(get_location(food))

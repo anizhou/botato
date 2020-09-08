@@ -7,3 +7,5 @@
   - [x] `pip install googlemaps`
   - [x] `pip install pprintpp`
   - [x] `pip install geomaps`
+  - [x] `pip install geopy`
+  - [x] `pip install nominatin`
