@@ -17,7 +17,11 @@ def home():
 # Get the bot response
 def get_bot_response(message):
     five_list = googleapi.top_five('40.7828514,-73.96528127819182', message)
-    return "Results: '{}'".format(five_list)
+    results = ""
+    for item in five_list:
+        results += "{name}\n Number: {phone_number}\n Price Level: {price_level}\n Rating: {rating}\n\n".format(name = item['result']['name'], phone_number = item['result']['formatted_phone_number'], price_level = item['result']['price_level'], rating = item['result']['rating'])
+    
+        return results
 
 # Verify whether webhook is connected
 def verify_webhook(req):

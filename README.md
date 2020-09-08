@@ -6,3 +6,4 @@
   - [x] `pip install requests`
   - [x] `pip install googlemaps`
   - [x] `pip install pprintpp`
+  - [x] `pip install geomaps`

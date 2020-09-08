@@ -39,6 +39,9 @@ def top_five(location, place): #should pass location and food
     return five_list
 
 
-#top_five('32.9858, -96.7501', "tea")
-# top_five('40.711070,-73.803520',"Mcdonalds")
-print(top_five('40.7828514,-73.96528127819182',"tea"))
+five_list = top_five('40.7828514,-73.96528127819182', "mcdonalds")
+results = ""
+for item in five_list:
+    print(item['result']['name'])
+    
+    
