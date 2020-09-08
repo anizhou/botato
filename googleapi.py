@@ -28,13 +28,15 @@ def top_five(location, place): #should pass location and food
 
             five_list.append(place_details)
 
-    elif (len(places_result['results']) <= 5):
+    elif (len(places_result['results']) <= 5 and len(places_result['results'])>0):
         for place in places_result['results']:
 
             my_place_id = place['place_id']    
             my_fields = ['name', 'formatted_phone_number', 'price_level', 'rating']
             place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
             five_list.append(place_details)
+    elif (len(places_result['results'])==0):
+        return "Place is closed"
     
     results = ""
     for item in five_list:
