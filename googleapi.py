@@ -1,10 +1,15 @@
 import googlemaps
 import pprint
 import time
+from geopy.geocoders import Nominatim
 
 # Ask for authorization for info with API key
 API_KEY = 'AIzaSyDYMwRSfChNGRiFY90ygxLzhiigkfBuhIo'
 gmaps = googlemaps.Client(key = API_KEY)
+
+geolocator = Nominatim(user_agent="googleapi")
+#user_input=input("Input location: ")
+#location = geolocator.geocode(user_input)
 
 def top_five(location, place): #should pass location and food
 
@@ -21,7 +26,7 @@ def top_five(location, place): #should pass location and food
             my_place_id = places_result['results'][i]['place_id']
 
             # Define necessary fields
-            my_fields = ['name', 'formatted_phone_number', 'price_level', 'rating']
+            my_fields = ['name', 'formatted_address', 'formatted_phone_number', 'price_level', 'rating']
 
             # Make a request for the place details
             place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
@@ -32,7 +37,7 @@ def top_five(location, place): #should pass location and food
         for place in places_result['results']:
 
             my_place_id = place['place_id']    
-            my_fields = ['name', 'formatted_phone_number', 'price_level', 'rating']
+            my_fields = ['name', 'formatted_address', 'formatted_phone_number', 'price_level', 'rating']
             place_details = gmaps.place(place_id = my_place_id, fields = my_fields)
             five_list.append(place_details)
     elif (len(places_result['results'])==0):
@@ -40,7 +45,15 @@ def top_five(location, place): #should pass location and food
     
     results = ""
     for item in five_list:
-        results += "{name}\n Number: {phone_number}\n Price Level: {price_level}\n Rating: {rating}\n\n".format(name = item['result']['name'], phone_number = item['result']['formatted_phone_number'], price_level = item['result']['price_level'], rating = item['result']['rating']) 
+        results += "{name}\n {address}\n Number: {phone_number}\n Rating: {rating}\n\n".format(name = item['result']['name'],address=item['result']['formatted_address'],phone_number = item['result']['formatted_phone_number'], rating = item['result']['rating']) 
 
     return results
-    
+
+
+#latt = str(location.latitude)
+#lon = str(location.longitude)
+#g = latt + ',' + lon
+
+#food_choice=input("Enter choice: ")
+#choice=top_five(g, food_choice)  
+#print(choice)  

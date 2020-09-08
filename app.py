@@ -1,6 +1,8 @@
 from flask import Flask, request
 from flask_ngrok import run_with_ngrok
 import requests, googleapi
+from geopy.geocoders import Nominatim
+
 
 app = Flask(__name__)
 run_with_ngrok(app)  # Start ngrok when app is run
@@ -16,8 +18,19 @@ def home():
     return "Howdy, Flask!"
 
 # Get the bot response
-def get_bot_response(message):
-    return googleapi.top_five('40.7828514,-73.96528127819182', message)
+geolocator = Nominatim(user_agent="googleapi")
+
+
+def get_location(address):
+	address=geolocator.geocode(str(address))
+	latt=str(address.latitude)
+	lon=str(location.longitude)
+	address=latt+','+lon
+	return address
+
+def get_bot_response(location,message):
+
+    return googleapi.top_five(location, message)
 
 # Verify whether webhook is connected
 def verify_webhook(req):
@@ -28,8 +41,8 @@ def verify_webhook(req):
 
 # Formulate a response to the user and pass it to the function that sends it
 def respond(sender, message):
-    response = get_bot_response(message)
-    send_message(sender, response)
+	response = get_bot_response(address,message)
+	send_message(sender, response)
 
 # Check if the message is a message from the user
 def is_user_message(message):
