@@ -9,6 +9,7 @@ run_with_ngrok(app)  # Start ngrok when app is run
 FB_API_URL = 'https://graph.facebook.com/v2.6/me/messages'
 VERIFY_TOKEN = 'bob'
 PAGE_ACCESS_TOKEN = 'EAAE361oDiy4BAG23yqgcoMO5hmu7v4EEM55HNbWgdrDAdDGAYvuu9NpnjANm2aYDFmC5VZAEMSGaFZBZBFMYsWVKw67006NJjx6xJ1mnneoZCawFWWDHKyPwNQjQhnviDqZBGU7xhBmeZBVXk5Q5auVzZBeFMw0G00kHTmBjtOiSQZDZD'
+PAGE_ACCESS_TOKEN_CAT='EAAIiC9PUCssBAGU7gawrBrZB97rPQ6Gsa6DeeySZACV2ZBYAAwjnbCPWpglz3gbqtIRlU6JE2yykpxhLmxuIEyZBLaVFdGgivtFx6Wbze7xQvTZBBmIR0tDtBKopzmhNXQ8JKMlbhdgpWvnSifeISecZA5dDKoa8FzGgVykXVZBNgZDZD'
 
 @app.route("/")
 def home():
@@ -67,7 +68,7 @@ def send_message(recipient_id, text):
     }
 
     auth = {
-        'access_token': PAGE_ACCESS_TOKEN
+        'access_token': PAGE_ACCESS_TOKEN_CAT
     }
 
     response = requests.post(
