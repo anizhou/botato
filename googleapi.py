@@ -60,9 +60,9 @@ def top_five(location, place): #should pass location and food
 
 def get_location(foodie):
 	foodie=geolocator.geocode(foodie)
-	latt=str(foodie.latitude)
+	lat=str(foodie.latitude)
 	lon=str(foodie.longitude)
-	address=latt+','+lon
+	address=lat+','+lon
 	return address
 
 food = '159 jamaica avenue'

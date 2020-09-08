@@ -23,14 +23,14 @@ geolocator = Nominatim(user_agent="googleapi")
 
 def get_location(foodie):
 	foodie=geolocator.geocode(foodie)
-	latt=str(foodie.latitude)
+	lat=str(foodie.latitude)
 	lon=str(foodie.longitude)
-	address=latt+','+lon
+	address=lat+','+lon
 	return address
 
 def get_bot_response(message,resturant):
 
-    return googleapi.top_five(message, "Dunkin")
+    return googleapi.top_five(message, "Pizza")
 #locate = message
 #y = get_location(locate)
 
@@ -45,7 +45,7 @@ def verify_webhook(req):
 def respond(sender, message):
     locate = message
     y = get_location(locate)
-    response = get_bot_response(y,"Dunkin")
+    response = get_bot_response(y,"Pizza")
     send_message(sender, response)
 
 # Check if the message is a message from the user
